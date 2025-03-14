@@ -86,7 +86,7 @@ vc_chp = [0.0,0.0025,0.005]  # churn_prop
 
 # set up grand list with all mesh points in it:
 perms_list = list(itertools.product(vc_sig,vc_poa,vc_ala,vc_rea,
-                                    vc_lo_hi_rad))  # this gives
+                                    vc_lo_hi_rad,vc_chp))  # this gives
 # tuples for each parameter combination
 
 num_rps = 3    # how many runs to do per grid point
@@ -101,8 +101,9 @@ for tup in perms_list:
     base_version.AL_ATTN = tup[2]
     base_version.RE_ATTN = tup[3]
     base_version.NM_LO,base_version.NM_HI,base_version.VOT_RAD = tup[4]
+    base_version.CHURN_PROP = tup[5]
     print("running simulation at parameters, SIG=%s, poa=%s, ala=%s, "
-          "rea=%s, nm_lo/hi/vr=%s" % tup)
+          "rea=%s, nm_lo/hi/vr=%s, churn_prop=%s" % tup)
     for _ in range(num_rps):
         base_version.run_simulation(new_sig=tup[0])  # this is ~kludgy,
         # but tells
